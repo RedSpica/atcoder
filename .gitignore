@@ -10,7 +10,7 @@ input.txt
 Main.bf
 Main.c
 Main.class
-Main.cpp
+
 Main.java
 Main.py
 Main.rb
@@ -23,7 +23,7 @@ Python-3.10.1.tar.xz
 rest.py
 rest2.py
 sample.cpp
-store.py
+
 testcase.txt
 wordle.py
 wordleDP.cpp
