@@ -1,6 +1,3 @@
-def REV(s):
-    return ''.join(reversed(s))
-
 # lower case
 class RollingHash():
     mod1=998244353
