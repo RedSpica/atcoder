@@ -703,8 +703,8 @@ struct scc_graph {
 
     // assertどうしよう
     void add_edge(int from, int to) { 
-      // assert(0 <= from && from < n);
-      // assert(0 <= to && to < n);
+      assert(0 <= from && from < _n);
+      assert(0 <= to && to < _n);
       edges.push_back({from, {to}}); 
     }
 
@@ -769,25 +769,6 @@ struct scc_graph {
   std::vector<std::pair<int, edge>> edges;
 };
 
-
-// // scc
-// struct scc_graph {
-//   public:
-//     scc_graph() : internal(0) {}
-//     explicit scc_graph(int n) : internal(n) {}
-
-//     void add_edge(int from, int to) {
-//         int n = internal.num_vertices();
-//         assert(0 <= from && from < n);
-//         assert(0 <= to && to < n);
-//         internal.add_edge(from, to);
-//     }
-
-//     std::vector<std::vector<int>> scc() { return internal.scc(); }
-
-//   private:
-//     internal::scc_graph internal;
-// };
 
 // change
 //const int MOD=1000000007;
@@ -895,7 +876,6 @@ signed main(){
 //segtreeの葉の先頭の添え字はN-1
 
 void Solve(){
-  
 
   return;
 }
