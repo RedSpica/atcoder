@@ -169,7 +169,7 @@ vll div(ll n){
   return (ret);
 }
 
-vector<ll> graph_bfs(ll start, vector<vector<ll>> G){
+vector<ll> graph_bfs(vector<vector<ll>> G, ll start){
   queue<ll> Q;
   Q.push(start);
 
@@ -202,7 +202,9 @@ vector<ll> graph_bfs(ll start, vector<vector<ll>> G){
   return dist;
 }
  
-vector<vector<ll>> grid_bfs(ll h,ll w,ll sx,ll sy,vector<string> field){
+vector<vector<ll>> grid_bfs(vector<string> field, ll sx,ll sy){
+  ll h=field.size();
+  ll w=field[0].size();
   queue<pair<ll,ll>> Q;
   Q.push({sx,sy});
   
