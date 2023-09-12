@@ -147,8 +147,7 @@ def graph_bfs(graph,start):
 
     while len(Q):
         now=Q.popleft()
-        for i in range(len(graph[now])):
-            nex=graph[now][i]
+        for nex in graph[now]:
             if nex in check:
                 continue
             

@@ -2,7 +2,7 @@ from collections import deque
 
 class LowestCommonAncestor():
     n=1
-    bit=64
+    bit=1
     doubling=[]
     G=[]
     p=-1
@@ -31,6 +31,9 @@ class LowestCommonAncestor():
                 check.add(nex)
                 self.G[now].append(nex)
 
+        dmax=max(self.distance)
+        while dmax>=(1<<self.bit):
+            self.bit+=1
 
         for _ in range(self.bit):
             self.doubling.append([root]*self.n)
@@ -68,7 +71,12 @@ class LowestCommonAncestor():
 
         return self.doubling[0][posx]
 
-    def dist(self,x,y):
+    def dist(self,x,y=p):
+        if x==self.p:
+            return self.distance[y]
+        if y==self.p:
+            return self.distance[x]
+        
         p=self.lca(x,y)
         return self.distance[x]+self.distance[y]-2*self.distance[p]
 
