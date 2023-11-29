@@ -304,6 +304,55 @@ ll calc_inversion(vll A){
 }
 */
 
+vector<vector<ll>> matrix_pow(vector<vector<ll>> A, ll x, ll mod){
+  ll n=A.size();
+  auto res=make_vec<ll>(n,n);
+  FOR(i,0,n){
+    res[i][i]=1;
+  }
+
+  auto cur=make_vec<ll>(n,n);
+  while(x>0){
+    if(x&1){
+      FOR(i,0,n){
+        FOR(j,0,n){
+          FOR(k,0,n){
+            cur[i][j]+=res[i][k]*A[k][j];
+            cur[i][j]%=mod;
+          }
+        }
+      }
+
+      FOR(i,0,n){
+        FOR(j,0,n){
+          res[i][j]=cur[i][j]%mod;
+          cur[i][j]=0;
+        }
+      }
+    }
+
+    x>>=1;
+
+    FOR(i,0,n){
+      FOR(j,0,n){
+        FOR(k,0,n){
+          cur[i][j]+=A[i][k]*A[k][j];
+          cur[i][j]%=mod;
+        }
+      }
+    }
+
+    FOR(i,0,n){
+      FOR(j,0,n){
+        A[i][j]=cur[i][j];
+        cur[i][j]=0;
+      }
+    }
+  }
+
+  return res;
+}
+
 bool compare_by_sec(pair<ll,ll> A,pair<ll,ll> B){
   if(A.first==B.first){
     return A.second>B.second;
