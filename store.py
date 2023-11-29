@@ -181,3 +181,38 @@ while cnt:
     else:
        l=l+d//3
     cnt-=1
+
+#matrix power
+def matrix_pow(A,x,mod=998244353):
+    n=len(A)
+    res=make_vec(n,n,0)
+    for i in range(n):
+        res[i][i]=1
+    
+    while x>0:
+        cur=make_vec(n,n,0)
+        if x&1:
+            for i in range(n):
+                for j in range(n):
+                    for k in range(n):
+                        cur[i][j]+=res[i][k]*A[k][j]
+                        cur[i][j]%=mod
+            
+            for i in range(n):
+                for j in range(n):
+                    res[i][j]=cur[i][j]
+                    cur[i][j]=0
+        
+        x//=2
+        
+        for i in range(n):
+            for j in range(n):
+                for k in range(n):
+                    cur[i][j]+=A[i][k]*A[k][j]
+                    cur[i][j]%=mod
+
+        for i in range(n):
+            for j in range(n):
+                A[i][j]=cur[i][j]
+    
+    return res
