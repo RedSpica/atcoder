@@ -54,3 +54,37 @@ class RollingHash():
     
     def get2(self,pos,size):
         return (self.Hash2[pos+size]-self.Hash2[pos])*self.InvBase2[pos]%self.mod2
+    
+    def LongestCommonPrefix(self,pos1,pos2):
+        l,r=0,self.N-max(pos1,pos2)+1
+        while r-l>1:
+            cen=(r+l)//2
+            if pos1+cen>self.N or pos2+cen>self.N:
+                r=cen
+                continue
+
+            # cur1=self.Hash1[pos1+cen]-self.Hash1[pos1]
+            # cur1=(cur1*self.InvBase1[pos1])%self.mod1
+            cur1=self.get1(pos1,cen)
+            # cur2=self.Hash1[pos2+cen]-self.Hash1[pos2]
+            # cur2=(cur2*self.InvBase1[pos2])%self.mod1
+            cur2=self.get1(pos2,cen)
+
+            if cur1!=cur2:
+                r=cen
+                continue
+            
+            # cur1=self.Hash2[pos1+cen]-self.Hash2[pos1]
+            # cur1=(cur1*self.InvBase2[pos1])%self.mod2
+            cur1=self.get2(pos1,cen)
+            # cur2=self.Hash2[pos2+cen]-self.Hash2[pos2]
+            # cur2=(cur2*self.InvBase2[pos2])%self.mod2
+            cur2=self.get2(pos2,cen)
+
+            if cur1!=cur2:
+                r=cen
+            
+            else:
+                l=cen
+            
+        return l
