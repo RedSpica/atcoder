@@ -63,22 +63,14 @@ class RollingHash():
                 r=cen
                 continue
 
-            # cur1=self.Hash1[pos1+cen]-self.Hash1[pos1]
-            # cur1=(cur1*self.InvBase1[pos1])%self.mod1
             cur1=self.get1(pos1,cen)
-            # cur2=self.Hash1[pos2+cen]-self.Hash1[pos2]
-            # cur2=(cur2*self.InvBase1[pos2])%self.mod1
             cur2=self.get1(pos2,cen)
 
             if cur1!=cur2:
                 r=cen
                 continue
             
-            # cur1=self.Hash2[pos1+cen]-self.Hash2[pos1]
-            # cur1=(cur1*self.InvBase2[pos1])%self.mod2
             cur1=self.get2(pos1,cen)
-            # cur2=self.Hash2[pos2+cen]-self.Hash2[pos2]
-            # cur2=(cur2*self.InvBase2[pos2])%self.mod2
             cur2=self.get2(pos2,cen)
 
             if cur1!=cur2:
@@ -88,3 +80,37 @@ class RollingHash():
                 l=cen
             
         return l
+    
+    #1つ目のほうが大きいなら0, 2つ目のほうが大きいなら1, 等しいなら2を返す
+    #引数の順番に注意！
+    def LexicographicalOrder(self,pos1,pos2,end1=-1,end2=-1):
+        if end1==-1:
+            end1=self.N-1
+        if end2==-1:
+            end2=self.N-1
+        
+        now=self.LongestCommonPrefix(pos1,pos2)
+        
+        if pos1+now>end1 and pos2+now>end2:
+            len1,len2=end1-pos1+1,end2-pos2+1
+            if len1>len2:
+                return 0
+            if len1<len2:
+                return 1
+            if len1==len2:
+                return 2
+        elif pos1+now>end1:
+            return 1
+        elif pos2+now>end2:
+            return 0
+        else:
+            c1,c2='?','?'
+            if pos1+now<self.N:
+                c1=self.S[pos1+now]
+            if pos2+now+1<self.N:
+                c2=self.S[pos2+now]
+            
+            if c1>c2:
+                return 0
+            if c1<c2:
+                return 1
