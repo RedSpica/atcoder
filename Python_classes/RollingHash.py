@@ -107,7 +107,7 @@ class RollingHash():
             c1,c2='?','?'
             if pos1+now<self.N:
                 c1=self.S[pos1+now]
-            if pos2+now+1<self.N:
+            if pos2+now<self.N:
                 c2=self.S[pos2+now]
             
             if c1>c2:
