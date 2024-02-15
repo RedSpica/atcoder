@@ -513,7 +513,77 @@ template <class Cap> struct mf_graph {
   std::vector<std::vector<_edge>> g;
 };
 
+struct rollinghash{
+  public:
+    rollinghash(string s,int len):n(len),Hash1(len+1),Hash2(len+1),Bases1(len+1),Bases2(len+1){
+      ll Base1=1007,Base2=2009;
+      ll now1=0,now2=0;
+      ll modinv1=modpow(Base1,mod1-2,mod1),modinv2=modpow(Base2,mod2-2,mod2);
+      Bases1[0]=1;
+      Bases2[0]=1;
+      for(int i=0;i<n;i++){ 
+        Hash1[i+1]=(Hash1[i]*Base1+(s[i]-'a'))%mod1;
+        Bases1[i+1]=(Bases1[i]*Base1)%mod1;
 
+        Hash2[i+1]=(Hash2[i]*Base2+(s[i]-'a'))%mod2;
+        Bases2[i+1]=(Bases2[i]*Base2)%mod2;
+      }
+    }
+
+    ll get1(int pos,int len){
+      ll res=Hash1[pos+len]-Hash1[pos]*Bases1[len]%mod1;
+      if(res<0){
+        res+=mod1;
+      }
+
+      return res;
+    }
+
+    ll get2(int pos,int len){
+      ll res=Hash2[pos+len]-Hash2[pos]*Bases2[len]%mod2;
+      if(res<0){
+        res+=mod2;
+      }
+
+      return res;
+    }
+
+    ll longestcommonprefix(int pos1,int pos2){
+      ll l=0,r=n+1-max(pos1,pos2);
+      while(r-l>1){
+        ll cen=(r+l)/2;
+
+        ll cur1=get1(pos1,cen);
+        ll cur2=get1(pos2,cen);
+
+        if(cur1!=cur2){
+          r=cen;
+          continue;
+        }
+
+        cur1=get2(pos1,cen);
+        cur2=get2(pos2,cen);
+
+        if(cur1!=cur2){
+          r=cen;
+        }
+        else{
+          l=cen;
+        }
+      }
+
+      return l;
+    }
+  
+  private:
+    int n;
+    ll mod1=998244353;
+    ll mod2=100000000-11;
+    vector<ll> Hash1;
+    vector<ll> Hash2;
+    vector<ll> Bases1;
+    vector<ll> Bases2;
+};
 
 struct dsu {
   public:
