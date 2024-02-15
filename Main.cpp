@@ -583,6 +583,51 @@ struct rollinghash{
     vector<ll> Bases2;
 };
 
+struct dijkstra{
+  public:
+    dijkstra(int n,vector<vector<vector<ll>>>G,int start=0):dist(n){
+      for(int i=0;i<n;i++){
+        dist[i]=INF;
+      }
+
+      priority_queue<pair<ll,ll>> Q;
+      vector<int> seen(n);
+      Q.push({0LL,start});
+      dist[start]=0;
+      while(Q.size()){
+        auto now=Q.top();
+        Q.pop();
+
+        ll cost=-now.first;
+        ll u=now.second;
+
+        if(seen[u]){
+          continue;
+        }
+
+        seen[u]++;
+
+        for(int i=0;i<G[u].size();i++){
+          ll x=G[u][i][0];
+          ll c=G[u][i][1];
+
+          if(dist[u]+c<dist[x]){
+            dist[x]=dist[u]+c;
+            Q.push({-dist[x],x});
+          }
+        }
+      }
+    }
+    
+    ll getdist(int x){
+      return dist[x];
+    }
+
+  private:
+    int n;
+    vector<ll> dist;
+};
+
 struct dsu {
   public:
     dsu() : _n(0) {}
