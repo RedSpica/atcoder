@@ -517,8 +517,6 @@ struct rollinghash{
   public:
     rollinghash(string s,int len):n(len),Hash1(len+1),Hash2(len+1),Bases1(len+1),Bases2(len+1){
       ll Base1=1007,Base2=2009;
-      ll now1=0,now2=0;
-      ll modinv1=modpow(Base1,mod1-2,mod1),modinv2=modpow(Base2,mod2-2,mod2);
       Bases1[0]=1;
       Bases2[0]=1;
       for(int i=0;i<n;i++){ 
