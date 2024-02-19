@@ -628,6 +628,118 @@ struct dijkstra{
     vector<ll> dist;
 };
 
+struct lowest_common_ancestor{
+  public:
+    lowest_common_ancestor(vector<vector<ll>>G,int n,int root):distance(n),p(root),doubling(60,vector<ll>(n)){
+      vector<vector<ll>> g(n,vector<ll>(0));
+      queue<ll> Q;
+      Q.push(root);
+
+      vector<int> check(n);
+      check[root]=1;
+
+      distance[root]=0;
+      ll dmax=0;
+      
+      while(Q.size()){
+        ll now=Q.front();
+        Q.pop();
+        for(int i=0;i<G[now].size();i++){
+          ll nex=G[now][i];
+
+          if(check[nex]){
+            continue;
+          }
+
+          distance[nex]=distance[now]+1;
+          Q.push(nex);
+          check[nex]=1;
+          g[now].push_back(nex);
+          chmax(dmax,distance[nex]);
+        }
+      }
+      
+      bit=0;
+      while(dmax>=((1LL)<<bit)){
+        bit++;
+      }
+
+      for(int i=0;i<n;i++){
+        for(int j=0;j<g[i].size();j++){
+          ll x=g[i][j];
+          doubling[0][x]=i;
+        }
+      }
+
+      for(int j=1;j<bit;j++){
+        for(int i=0;i<n;i++){
+          ll now=doubling[j-1][i];
+          doubling[j][i]=doubling[j-1][now];
+        }
+      }
+    }
+
+    ll lca(int x,int y){
+      ll posx=x,posy=y;
+      ll distx=distance[x],disty=distance[y];
+
+      ll additionalx=distx-min(distx,disty),additionaly=disty-min(distx,disty);
+      for(ll j=0;j<bit;j++){
+        if(additionalx & (1LL<<j)){
+          posx=doubling[j][posx];
+        }
+        if(additionaly & (1LL<<j)){
+          posy=doubling[j][posy];
+        }
+      }
+
+      if(posx==posy){
+        return posx;
+      }
+
+      for(ll j=bit-1;j>=0;j--){
+        if(doubling[j][posx]!=doubling[j][posy]){
+          posx=doubling[j][posx];
+          posy=doubling[j][posy];
+        }
+      }
+
+      return doubling[0][posx];
+    }
+
+    ll dist(int x,int y=-1){
+      if(y==-1){
+        y=p;
+      }
+
+      if(x==p){
+        return distance[y];
+      }
+      if(y==p){
+        return distance[x];
+      }
+
+      ll currentp=lca(x,y);
+      return distance[x]+distance[y]-2*distance[currentp];
+    }
+
+    bool is_on_path(int x,int y,int a){
+      if(dist(x,y)==dist(x,a)+dist(a,y)){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
+  private:
+    int n;
+    int p;
+    ll bit;
+    vector<vector<ll>> doubling;
+    vector<ll> distance;
+};
+
 struct dsu {
   public:
     dsu() : _n(0) {}
