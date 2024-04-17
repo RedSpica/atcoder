@@ -10,8 +10,8 @@ class Dijkstra():
         self.n=N
         self.dist=[float('inf')]*N
 
-        self.dist[0]=0
-        heapq.heappush(self.Q,(0,0))
+        self.dist[S]=0
+        heapq.heappush(self.Q,(0,S))
 
         while len(self.Q):
             nex=heapq.heappop(self.Q)
