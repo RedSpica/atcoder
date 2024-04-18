@@ -3,6 +3,9 @@ class RollingHash():
     mod1=998244353
     mod2=10**8-11
 
+    Base1=1007
+    Base2=2009
+
     def __init__(self,s):
         self.S=s
         self.N=len(s)
@@ -12,9 +15,6 @@ class RollingHash():
 
         self.Bases1=[1]
         self.Bases2=[1]
-
-        Base1=1007
-        Base2=2009
 
         for i in range(self.N):
             # 1

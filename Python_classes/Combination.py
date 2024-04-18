@@ -1,7 +1,4 @@
 class Combination():
-    n=1
-    fac,finv,inv=[1],[1],[1]
-
     def __init__(self,N,mod):
         N+=1
         self.n=N

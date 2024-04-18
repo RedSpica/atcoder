@@ -1,18 +1,13 @@
 from collections import deque 
 
 class LowestCommonAncestor():
-    n=1
-    bit=1
-    doubling=[]
-    G=[]
-    p=-1
-    distance=[]
-
     def __init__(self,g,root):
         self.n=len(g)
         self.p=root
         self.G=[[] for _ in range(n)]
         self.distance=[0]*n
+        self.bit=1
+        self.doubling=[]
 
         Q=deque()
         Q.append(self.p)
@@ -71,7 +66,9 @@ class LowestCommonAncestor():
 
         return self.doubling[0][posx]
 
-    def dist(self,x,y=p):
+    def dist(self,x,y=-1):
+        if y==-1:
+            y=self.p
         if x==self.p:
             return self.distance[y]
         if y==self.p:

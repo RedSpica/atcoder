@@ -1,7 +1,4 @@
 class Eratosthenes_sieve():
-    n=0
-    sieve=[x for x in range(n)]
-
     def __init__(self,N):
         self.n=N
         self.sieve=[]

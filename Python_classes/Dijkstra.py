@@ -1,17 +1,16 @@
 import heapq
 
 class Dijkstra():
-    n=1
-    dist=[0]
-    Q=[]
-    heapq.heapify(Q)
-    vis=set()
     def __init__(self,N,G,S=0):
         self.n=N
         self.dist=[float('inf')]*N
 
         self.dist[S]=0
+        self.Q=[]
+        heapq.heapify(self.Q)
         heapq.heappush(self.Q,(0,S))
+
+        self.vis=set()
 
         while len(self.Q):
             nex=heapq.heappop(self.Q)
