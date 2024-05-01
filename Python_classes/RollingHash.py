@@ -18,17 +18,17 @@ class RollingHash():
 
         for i in range(self.N):
             # 1
-            now1=(self.Hash1[i]*Base1+ord(self.S[i])-97)%self.mod1
+            now1=(self.Hash1[i]*self.Base1+ord(self.S[i])-97)%self.mod1
             self.Hash1.append(now1)
 
-            add1=(self.Bases1[i]*Base1)%self.mod1
+            add1=(self.Bases1[i]*self.Base1)%self.mod1
             self.Bases1.append(add1)
 
             # 2
-            now2=(self.Hash2[i]*Base2+ord(self.S[i])-97)%self.mod2
+            now2=(self.Hash2[i]*self.Base2+ord(self.S[i])-97)%self.mod2
             self.Hash2.append(now2)
 
-            add2=(self.Bases2[i]*Base2)%self.mod2
+            add2=(self.Bases2[i]*self.Base2)%self.mod2
             self.Bases2.append(add2)
 
     def get1(self,pos,size):
@@ -38,6 +38,9 @@ class RollingHash():
     def get2(self,pos,size):
         res=self.Hash2[pos+size]-self.Hash2[pos]*self.Bases2[size]%self.mod2
         return res%self.mod2
+    
+    def all_get(self,pos,size):
+        return [self.get1(pos,size),self.get2(pos,size)]
 
     def LongestCommonPrefix(self,pos1,pos2):
         l,r=0,self.N-max(pos1,pos2)+1
