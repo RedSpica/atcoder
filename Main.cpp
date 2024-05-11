@@ -520,10 +520,10 @@ struct rollinghash{
       Bases1[0]=1;
       Bases2[0]=1;
       for(int i=0;i<n;i++){ 
-        Hash1[i+1]=(Hash1[i]*Base1+(s[i]-'a'))%mod1;
+        Hash1[i+1]=(Hash1[i]*Base1+s[i])%mod1;
         Bases1[i+1]=(Bases1[i]*Base1)%mod1;
 
-        Hash2[i+1]=(Hash2[i]*Base2+(s[i]-'a'))%mod2;
+        Hash2[i+1]=(Hash2[i]*Base2+s[i])%mod2;
         Bases2[i+1]=(Bases2[i]*Base2)%mod2;
       }
     }

@@ -18,14 +18,14 @@ class RollingHash():
 
         for i in range(self.N):
             # 1
-            now1=(self.Hash1[i]*self.Base1+ord(self.S[i])-97)%self.mod1
+            now1=(self.Hash1[i]*self.Base1+ord(self.S[i]))%self.mod1
             self.Hash1.append(now1)
 
             add1=(self.Bases1[i]*self.Base1)%self.mod1
             self.Bases1.append(add1)
 
             # 2
-            now2=(self.Hash2[i]*self.Base2+ord(self.S[i])-97)%self.mod2
+            now2=(self.Hash2[i]*self.Base2+ord(self.S[i]))%self.mod2
             self.Hash2.append(now2)
 
             add2=(self.Bases2[i]*self.Base2)%self.mod2
