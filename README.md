@@ -9,7 +9,7 @@ conda activate atcoder
 Rustをやるとき
 初回だけ
 ```
-cargo new atcoder
+cargo new Rust
 ```
 
 毎回実行するとき
