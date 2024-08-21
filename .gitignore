@@ -1,30 +1,12 @@
-.vs
-.vscode
-Python-3.9.0
-Python-3.10.1
-a.exe
+
 a.out
-ans.txt
 input.txt
 Main.bf
 Main.c
-Main.class
 
-Main.java
 Main.py
-Main.rb
-marathon.cpp
-memo.txt
 output.txt
-Python-3.9.0.tgz
-Python-3.10.1.tar.xz
 rest.py
-rest2.py
-sample.cpp
-
-testcase.txt
-wordle.py
-wordleDP.cpp
 
 Python_classes/Fenwicktree.py
 Python_classes/SegmentTree.py
