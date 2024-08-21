@@ -838,6 +838,78 @@ template <class T> struct fenwick_tree {
 
 
 
+struct modifiable_rollinghash{
+  public:
+    modifiable_rollinghash(string s,int len):n(len),S(len),Hash1(len+1),Hash2(len+1),Bases1(len+1),Bases2(len+1),BaseInvs1(len+1),BaseInvs2(len+1){
+      ll Base1=1007,Base2=2009;
+      
+      Bases1[0]=1;
+      Bases2[0]=1;
+
+      ll BaseInv1=modpow(Base1,mod1-2,mod1);
+      ll BaseInv2=modpow(Base2,mod2-2,mod2);
+
+      BaseInvs1[0]=1;
+      BaseInvs2[0]=1;
+      for(int i=0;i<n;i++){ 
+        S[i]=s[i];
+        ll c=s[i];
+        Hash1.add(i+1,(Bases1[i]*c)%mod1);
+
+        Bases1[i+1]=(Bases1[i]*Base1)%mod1;
+        BaseInvs1[i+1]=(BaseInvs1[i]*BaseInv1)%mod1;
+
+
+        Hash2.add(i+1,(Bases2[i]*c)%mod2);
+
+        Bases2[i+1]=(Bases2[i]*Base2)%mod2;
+        BaseInvs2[i+1]=(BaseInvs2[i]*BaseInv2)%mod2;
+      }
+    }
+
+    ll get1(int pos,int len){
+      ll res=((Hash1.sum(pos,pos+len)%mod1)*BaseInvs1[pos-1])%mod1;
+
+      return res;
+    }
+
+    ll get2(int pos,int len){
+      ll res=((Hash2.sum(pos,pos+len)%mod2)*BaseInvs2[pos-1])%mod2;
+
+      return res;
+    }
+
+    void set(int pos,char c){
+      ll now=S[pos-1];
+      ll nex=c;
+      ll val1=(nex*Bases1[pos-1]%mod1-now*Bases1[pos-1]%mod1)%mod1;
+      ll val2=(nex*Bases2[pos-1]%mod2-now*Bases2[pos-1]%mod2)%mod2;
+
+      if(val1<=0){
+        val1+=mod1;
+      }
+      if(val2<=0){
+        val2+=mod2;
+      }
+
+      Hash1.add(pos,val1);
+      Hash2.add(pos,val2);
+      S[pos-1]=c;
+    }
+
+  private:
+    int n;
+    vector<char> S;
+    ll mod1=998244353;
+    ll mod2=100000000-11;
+    fenwick_tree<ll> Hash1;
+    fenwick_tree<ll> Hash2;
+    vector<ll> Bases1;
+    vector<ll> Bases2;
+    vector<ll> BaseInvs1;
+    vector<ll> BaseInvs2;
+};
+
 int ceil_pow2(int n) {
   int x = 0;
   while ((1U << x) < (unsigned int)(n)) x++;
