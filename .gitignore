@@ -1,11 +1,11 @@
 
 a.out
-input.txt
+input*
 Main.bf
 Main.c
 
 Main.py
-output.txt
+output*
 rest.py
 
 Python_classes/Fenwicktree.py

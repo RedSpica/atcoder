@@ -81,11 +81,11 @@ class Modifiable_RollingHash():
     def all_get(self,pos,size):
         return [self.get1(pos,size),self.get2(pos,size)]
     
-    def setval(self,pos,c):
+    def set(self,pos,c):
         now=ord(self.S[pos-1])
         nex=ord(c)
-        val1=(nex*self.Bases1[pos-1]%self.mod1-now*self.Bases1[pos-1]%self.mod1)%self.mod1
-        val2=(nex*self.Bases2[pos-1]%self.mod2-now*self.Bases2[pos-1]%self.mod2)%self.mod2
+        val1=nex*self.Bases1[pos-1]%self.mod1-now*self.Bases1[pos-1]%self.mod1
+        val2=nex*self.Bases2[pos-1]%self.mod2-now*self.Bases2[pos-1]%self.mod2
 
         self.Hash1.add(pos,val1)
         self.Hash2.add(pos,val2)
