@@ -882,15 +882,8 @@ struct modifiable_rollinghash{
     void set(int pos,char c){
       ll now=S[pos-1];
       ll nex=c;
-      ll val1=(nex*Bases1[pos-1]%mod1-now*Bases1[pos-1]%mod1)%mod1;
-      ll val2=(nex*Bases2[pos-1]%mod2-now*Bases2[pos-1]%mod2)%mod2;
-
-      if(val1<=0){
-        val1+=mod1;
-      }
-      if(val2<=0){
-        val2+=mod2;
-      }
+      ll val1=nex*Bases1[pos-1]%mod1-now*Bases1[pos-1]%mod1;
+      ll val2=nex*Bases2[pos-1]%mod2-now*Bases2[pos-1]%mod2;
 
       Hash1.add(pos,val1);
       Hash2.add(pos,val2);
