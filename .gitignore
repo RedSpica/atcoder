@@ -1,11 +1,9 @@
 
+Main*
 a.out
 input*
-Main.bf
-Main.c
-
-Main.py
 output*
+
 rest.py
 
 Python_classes/Fenwicktree.py
