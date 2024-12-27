@@ -23,3 +23,12 @@ class Combination():
             return 0
         
         return self.fac[n]*(self.finv[k]*self.finv[n-k]%mod)%mod
+    
+    def fac(self,N):
+        return self.fac[N]
+    
+    def finv(self,N):
+        return self.finv[N]
+    
+    def inv(self,N):
+        return self.finv[N]*self.fac[N-1]%mod
