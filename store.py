@@ -175,8 +175,9 @@ cnt=100
 l,r=0,
 while cnt:
     x,y=(2*l+r)//3,(l+2*r)//3
-    d=(r-l)
-    if ##function:
+    d=max(3,(r-l))
+
+    if ##value of x <= value of y:
         r=r-d//3
     else:
        l=l+d//3
