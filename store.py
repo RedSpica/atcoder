@@ -159,7 +159,9 @@ def graph_bfs(graph,start):
 
 #DFS
 import sys
+import pypyjit
 sys.setrecursionlimit(300000)
+pypyjit.set_param('max_unroll_recursion=-1')
 
 def dfs(cur,pre):
     #来たときの処理
