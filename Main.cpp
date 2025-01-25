@@ -290,19 +290,6 @@ ll calc_LIS(vll lis){
   return ans;
 }
 
-/*
-ll calc_inversion(vll A){
-  ll n=A.size();
-  fenwick_tree<ll> ft(n+1);
-  ll ans=0;
-  FOR(i,0,n){
-    ans+=ft.sum(A[i]+1,n+1);
-    ft.add(A[i],1);
-  }
-
-  return ans;
-}
-*/
 
 vector<vector<ll>> matrix_pow(vector<vector<ll>> A, ll x, ll mod){
   ll n=A.size();
@@ -836,7 +823,17 @@ template <class T> struct fenwick_tree {
   }
 };
 
+ll calc_inversion(vll A){
+  ll n=A.size();
+  fenwick_tree<ll> ft(n+1);
+  ll ans=0;
+  FOR(i,0,n){
+    ans+=ft.sum(A[i]+1,n+1);
+    ft.add(A[i],1);
+  }
 
+  return ans;
+}
 
 struct modifiable_rollinghash{
   public:
