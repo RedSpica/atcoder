@@ -36,3 +36,13 @@ class Eratosthenes_sieve():
     def sqrt_N(self,N):
         return int(N**0.5+0.1)
 
+    def totient(self,x):
+        res=x
+        d=self.factors(x)
+        for k in d.keys():
+            if k==1:
+                continue
+            res//=k
+            res*=(k-1)
+
+        return res
