@@ -219,3 +219,61 @@ def matrix_pow(A,x,mod=998244353):
                 A[i][j]=cur[i][j]
     
     return res
+
+##topological sort 
+##O(N), not lexicographic
+def topological_sort(G):
+    size=len(G)
+    ind=[0]*size
+
+    for i in range(size):
+        for x in G[i]:
+            ind[x]+=1
+    
+    Q=deque()
+    for i in range(size):
+        if ind[i]==0:
+            Q.append(i)
+    
+    heapq.heapify(Q)
+    res=[]
+    while len(Q)>0:
+        now=Q.popleft()
+        res.append(now)
+        for nex in G[now]:
+            ind[nex]-=1
+            if ind[nex]==0:
+                Q.append(nex)
+    
+    return res
+
+
+##topological sort
+##O(NlogN), lexicographic
+import heapq
+
+def ordered_topological_sort(G,asc=True):
+    size=len(G)
+    ind=[0]*size
+
+    for i in range(size):
+        for x in G[i]:
+            ind[x]+=1
+    
+    Q=[]
+    for i in range(size):
+        if ind[i]==0:
+            Q.append(i)
+    
+    heapq.heapify(Q)
+    res=[]
+    while len(Q)>0:
+        now=-heapq.heappop(Q)
+        now*=(-1)**asc
+        res.append(now)
+        for nex in G[now]:
+            ind[nex]-=1
+            if ind[nex]==0:
+                heapq.heappush(Q,-nex*(-1)**asc)
+    
+    return res
