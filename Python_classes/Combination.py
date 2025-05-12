@@ -1,35 +1,33 @@
-class Combination():
-    def __init__(self,N,mod):
-        N+=1
-        self.n=N
-        self.fact=[0]*N;
-        self.factinv=[0]*N;
-        self.modinv=[0]*N;
+def init_combi(N,mod):
+    N+=1
+    global fact,factinv,modinv
+    fact=[0]*N
+    factinv=[0]*N
+    modinv=[0]*N
 
-        self.fact[0]=self.fact[1]=1
-        self.factinv[0]=self.factinv[1]=1
-        self.modinv[1]=1
+    fact[0]=fact[1]=1
+    factinv[0]=factinv[1]=1
+    modinv[1]=1
 
-        for x in range(2,N):
-            self.fact[x]=(self.fact[x-1]*x)%mod
-            self.modinv[x]=(mod-self.modinv[mod%x]*(mod//x))%mod
-            self.factinv[x]=(self.factinv[x-1]*self.modinv[x])%mod
-        
-    def combi(self,n,k):
-        if n<k:
-            return 0
-        
-        if (n<0) or (k<0):
-            return 0
-        
-        return self.fact[n]*(self.factinv[k]*self.factinv[n-k]%mod)%mod
+    for x in range(2,N):
+        fact[x]=(fact[x-1]*x)%mod
+        modinv[x]=(mod-modinv[mod%x]*(mod//x))%mod
+        factinv[x]=(factinv[x-1]*modinv[x])%mod
+
+def combi(n,k):
+    if n<k:
+        return 0
     
-    def fac(self,n):
-        return self.fact[n]
+    if (n<0) or (k<0):
+        return 0
     
-    def finv(self,n):
-        return self.factinv[n]
-    
-    def inv(self,n):
-        # return self.factinv[N]*self.fact[N-1]%mod
-        return self.modinv[n]
+    return fact[n]*(factinv[k]*factinv[n-k]%mod)%mod
+
+def fac(n):
+    return fact[n]
+
+def finv(n):
+    return factinv[n]
+
+def inv(n):
+    return modinv[n]
