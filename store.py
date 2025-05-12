@@ -97,6 +97,29 @@ def isprime(n):
         else:
             return True
 
+#BFS on Graph
+from collections import deque 
+
+def graph_bfs(graph,start=0):
+    size=len(graph)
+
+    Q=deque()
+    Q.append(start)
+    
+    dist=[10**20]*size
+    dist[start]=0
+
+    while len(Q):
+        now=Q.popleft()
+        for nex in graph[now]:            
+            if dist[nex]<=dist[now]+1:
+                continue
+
+            dist[nex]=dist[now]+1
+            Q.append(nex)
+
+    return dist
+
 ##BFS on Grid
 from collections import deque 
 
@@ -106,9 +129,6 @@ def grid_bfs(field,sx,sy):
 
     dist=[[10**20]*w for _ in range(h)]
     dist[sx][sy]=0
-
-    check=[[0]*w for _ in range(h)]
-    check[sx][sy]=1
 
     while len(Q):
         now=Q.popleft()
@@ -121,40 +141,12 @@ def grid_bfs(field,sx,sy):
             if field[x+dx][y+dy]=='#':
                 continue
             
-            if check[x+dx][y+dy]:
+            if dist[x+dx][y+dy]<=dist[x][y]+1:
                 continue
-            
+
             dist[x+dx][y+dy]=dist[x][y]+1
             Q.append((x+dx,y+dy))
-            check[x+dx][y+dy]=1
     
-    return dist
-
-#BFS on Graph
-from collections import deque 
-
-def graph_bfs(graph,start):
-    sz=len(graph)
-
-    Q=deque()
-    Q.append(start)
-    
-    dist=[10**20]*sz
-    dist[start]=0
-
-    check=set()
-    check.add(start)
-
-    while len(Q):
-        now=Q.popleft()
-        for nex in graph[now]:
-            if nex in check:
-                continue
-            
-            dist[nex]=dist[now]+1
-            Q.append(nex)
-            check.add(nex)
-
     return dist
 
 #DFS
